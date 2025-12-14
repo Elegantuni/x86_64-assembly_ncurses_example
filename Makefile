@@ -1,5 +1,5 @@
 playerandtest1:
-	gcc -o playerandtest1 main.s /usr/lib64/libncurses.a /usr/lib64/libtinfo.a -static
+	gcc -o playerandtest1 main.s -D_DEFAULT_SOURCE -D_XOPEN_SOURCE=600 -lncurses -ltinfo -ldl -static
 
 clean:
 	rm -f playerandtest1

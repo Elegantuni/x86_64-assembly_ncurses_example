@@ -23,14 +23,14 @@ main:
 	mov $0, %rax
 	call rand
 	xor %rdx, %rdx
-	mov $80, %rcx
+	mov $79, %rcx
 	div %rcx
 	mov %rdx, (playerposx)
 
 	mov $0, %rax
 	call rand
 	xor %rdx, %rdx
-	mov $24, %rcx
+	mov $23, %rcx
 	div %rcx
 	mov %rdx, (playerposy)
 
@@ -114,12 +114,12 @@ loopaend:
 processd:
 	mov (playerposx), %rbx
 	add $1, %rbx
-	cmp $80, %rbx
+	cmp $79, %rbx
 	jg loopd
 	jmp loopdend
 
 loopd:
-	mov $80, %rbx
+	mov $79, %rbx
 
 loopdend:
 	mov %rbx, %rcx
@@ -144,12 +144,12 @@ loopwend:
 processs:
 	mov (playerposy), %rbx
 	add $1, %rbx
-	cmp $24, %rbx
+	cmp $23, %rbx
 	jg loops
 	jmp loopsend
 
 loops:
-	mov $24, %rbx
+	mov $23, %rbx
 
 loopsend:
 	mov %rbx, %rcx

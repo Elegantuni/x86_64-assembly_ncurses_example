@@ -1,10 +1,16 @@
 #include "ncurses.h"
+#include "w.h"
 
 .data
 player:
 	.ascii "@\0"
+stdscr_now:
+	.ascii "stdscr\0"
+
 	.lcomm playerposx, 8
 	.lcomm playerposy, 8
+	.lcomm rows, 8
+	.lcomm cols, 8
 
 .text
 .globl main
@@ -13,28 +19,33 @@ main:
 	mov %rsp, %rbp
 
 	mov $0, %rax
-	mov $0, %rdi
-	call time
-	mov %rax, %rdi
+	call ioctl_col
+	mov %rax, %r8
+	sub $1, %r8
+	mov %r8, (cols)
 
 	mov $0, %rax
-	call srand
+	call ioctl_row
+	mov %rax, %r9
+	sub $1, %r9
+	mov %r9, (rows)
 
-	mov $0, %rax
-	call rand
+	rdrand %rbx
+	mov (cols), %rax
 	xor %rdx, %rdx
-	mov $79, %rcx
-	div %rcx
+	div %rbx
 	mov %rdx, (playerposx)
-
-	mov $0, %rax
-	call rand
+	
+	rdrand %rbx
+	mov (rows), %rax
 	xor %rdx, %rdx
-	mov $23, %rcx
-	div %rcx
+	div %rbx
 	mov %rdx, (playerposy)
 
 	mov $0, %rax
+	mov $stdscr_now, %rdi
+	mov (cols), %rsi
+	mov (rows), %rdx
 	call initscr
 
 	mov $0, %rax
@@ -114,12 +125,12 @@ loopaend:
 processd:
 	mov (playerposx), %rbx
 	add $1, %rbx
-	cmp $79, %rbx
+	cmp (cols), %rbx
 	jg loopd
 	jmp loopdend
 
 loopd:
-	mov $79, %rbx
+	mov (cols), %rbx
 
 loopdend:
 	mov %rbx, %rcx
@@ -144,12 +155,12 @@ loopwend:
 processs:
 	mov (playerposy), %rbx
 	add $1, %rbx
-	cmp $23, %rbx
+	cmp (rows), %rbx
 	jg loops
 	jmp loopsend
 
 loops:
-	mov $23, %rbx
+	mov (rows), %rbx
 
 loopsend:
 	mov %rbx, %rcx

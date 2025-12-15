@@ -30,14 +30,14 @@ main:
 	sub $1, %r9
 	mov %r9, (rows)
 
-	rdrand %rbx
-	mov (cols), %rax
+	rdrand %rax
+	mov (cols), %rbx
 	xor %rdx, %rdx
 	div %rbx
 	mov %rdx, (playerposx)
 	
-	rdrand %rbx
-	mov (rows), %rax
+	rdrand %rax
+	mov (rows), %rbx
 	xor %rdx, %rdx
 	div %rbx
 	mov %rdx, (playerposy)

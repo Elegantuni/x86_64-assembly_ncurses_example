@@ -2,10 +2,11 @@
 A example x86_64 assembly ncurses example
 
 Freebsd
-# pkg install gsed
-$ ./run_first_freebsd.sh
-$ make
+$ make -f Makefile-freebsd
 
 Linux
 $ make
+
+Openbsd
+$ make -f Makefile-freebsd
 

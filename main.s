@@ -11,6 +11,7 @@ stdscr_now:
 	.lcomm playerposy, 8
 	.lcomm rows, 8
 	.lcomm cols, 8
+	.lcomm randomnumber, 8
 
 .text
 .globl main
@@ -30,13 +31,26 @@ main:
 	sub $1, %r9
 	mov %r9, (rows)
 
-	rdrand %rax
+	mov $0, %rax
+	mov $0, %rdi
+	call time
+	mov %rax, %r11
+
+	mov $0, %rax
+	mov %r11, %rdi
+	call srand
+
+	mov $0, %rax
+	call rand
+	mov %rax, (randomnumber)
+
+	mov (randomnumber), %rax
 	mov (cols), %rbx
 	xor %rdx, %rdx
 	div %rbx
 	mov %rdx, (playerposx)
 	
-	rdrand %rax
+	mov (randomnumber), %rax
 	mov (rows), %rbx
 	xor %rdx, %rdx
 	div %rbx

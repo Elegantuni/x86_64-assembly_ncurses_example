@@ -10,3 +10,5 @@ $ make
 Openbsd
 $ make -f Makefile-freebsd
 
+Windows
+$ nmake -f Makefile-windows

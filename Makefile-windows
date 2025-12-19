@@ -1,0 +1,11 @@
+winfile_exe: winfile
+
+windows_winfile.o:
+	cl /c windows_winfile.c
+
+winfile: windows_winfile.o
+	ml64 /c winfile.asm
+	cl winfile.obj windows_winfile.obj user32.lib Advapi32.lib
+
+clean:
+	del winfile.obj windows_winfile.obj winfile.exe

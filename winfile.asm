@@ -43,8 +43,8 @@ main proc
 
         mov rcx, r11
         call srand
-
-        call rand
+	
+        rdrand rax
         mov randomnumber, rax
 
         mov rax, randomnumber

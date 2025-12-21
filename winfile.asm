@@ -44,8 +44,8 @@ main proc
         mov rcx, r11
         call srand
 	
-        rdrand rax
-        mov randomnumber, rax
+        call rand
+	mov randomnumber, rax
 
         mov rax, randomnumber
         mov rbx, cols

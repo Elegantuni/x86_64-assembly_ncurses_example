@@ -26,26 +26,26 @@ player db "@", 0
 
 .code
 main proc
-        push rbp
-        mov rbp, rsp
+        push %rbp
+        mov %rbp, %rsp
 
-	call winfile_cols
-	sub rax, 1
-	mov cols, rax
+		mov %rax, $0
+		mov %rdx, =stdscr(%rdi)
+		mov %rcx, =rows(%rdi)
+		mov %rdx, =cols(%rdi)
+		call getmaxyx
 
-	call winfile_rows
-	sub rax, 1
-	mov rows, rax
+		getmaxyx(win, rows, cols)
 
-        mov rcx, 0
+        mov %rcx, 0
         call time
-        mov r11, rax
+        mov %r11, %rax
 
-        mov rcx, r11
+        mov %rcx, %r11
         call srand
-	
+
+		mov randomnumber, %rax
         call rand
-	mov randomnumber, rax
 
         mov rax, randomnumber
         mov rbx, cols
